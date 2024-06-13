@@ -23,20 +23,15 @@ module.exports = {
         }
     },
 
-    // FEITO: Complete a função find do ProductController
+    // ITMAN: Complete a função find do ProductController
     // Lembre-se de criar uma constante para armazenar o produto que você quer encontrar
     // Lembre-se de retorná-lo como json
     // Lembre-se de lidar com casos de erros
     find: async function (req, res) {
         try {
-            const products = await Product.find();
-            if (!products) {
-                return res.notFound('Sem produtos cadastrados');
-            }
-            return res.json(products);
 
         } catch (error) {
-            return res.serverError(error);
+
         }
     },
 
@@ -53,36 +48,20 @@ module.exports = {
         }
     },
 
-    // FEITO: Complete a função update do ProductController
+    // ITMAN: Complete a função update do ProductController
     // Dica: A função update usa o id do produto assim como a função delete ou a findOne, use de base
     // Dica: A função update insere informações para um produto assim como a função create, use de base
     update: async function (req, res) {
         try {
-            // Pegando os parâmetros do request
-            const { id, name, description, price } = req.allParams();
-    
-            // Verifica se o ID foi fornecido
-            if (!id) {
-                return res.badRequest('ID do produto é obrigatório');
-            }
-    
-            // Atualizando o produto com base no ID fornecido
-            const updatedProducts = await Product.update({ id }).set({
-                name,
-                description,
-                price
-            }).fetch();
-    
-            // Verificando se algum produto foi atualizado
-            if (updatedProducts.length === 0) {
-                return res.notFound('Produto não encontrado');
-            }
-    
-            // Retornando a lista de produtos atualizados
-            return res.json(updatedProducts);
+
+            // Faça uma verificação aqui para caso o produto não seja encontrado
+            // if () {
+            //     return res.notFound('Produto não encontrado');
+            // }
+
+            // return res.json(updatedProduct);
         } catch (error) {
-            // Tratamento de erro
-            return res.serverError(error);
+            // return res.serverError(error);
         }
     },
 
