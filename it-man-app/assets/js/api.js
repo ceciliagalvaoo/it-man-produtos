@@ -28,15 +28,24 @@ async function fetchProducts() {
   }
   
   async function updateProduct(productId, formData) {
+    const data = {
+        name: formData.get('nameToUpdate'),
+        description: formData.get('descriptionToUpdate'),
+        price: formData.get('priceToUpdate')
+    };
     const response = await fetch(`/product/${productId}`, {
-      method: 'PUT',
-      body: formData,
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
     });
-  
+
     if (!response.ok) {
-      throw new Error('Erro ao atualizar produto');
+        throw new Error('Erro ao atualizar produto');
     }
   }
+
   
   async function deleteProduct(productId) {
     const response = await fetch(`/product/${productId}`, {

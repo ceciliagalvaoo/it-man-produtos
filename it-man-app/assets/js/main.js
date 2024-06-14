@@ -55,20 +55,26 @@ document.addEventListener('DOMContentLoaded', async function () {
     });
   
     // Atualizar produto
-    updateProductForm.addEventListener('submit', async function (event) {
+    document.getElementById('update-product-form').addEventListener('submit', async function (event) {
       event.preventDefault();
-      const productId = updateProductForm.productIdToUpdate.value.trim();
-      const formData = new FormData(updateProductForm);
-  
+      const productId = document.getElementById('productIdToUpdate').value.trim();
+      const formData = new FormData(event.target);
+
+      console.log('ID do Produto:', productId);
+      for (let pair of formData.entries()) {
+          console.log(pair[0] + ': ' + pair[1]);
+      }
+
       try {
-        await updateProduct(productId, formData);
-        alert('Produto atualizado com sucesso!');
-        updateProductForm.reset();
+          await updateProduct(productId, formData);
+          alert('Produto atualizado com sucesso!');
+          event.target.reset();
       } catch (error) {
-        console.error('Erro ao atualizar produto:', error);
-        alert('Ocorreu um erro ao atualizar o produto. Certifique-se de que o ID do produto está correto.');
+          console.error('Erro ao atualizar produto:', error);
+          alert('Ocorreu um erro ao atualizar o produto. Certifique-se de que o ID do produto está correto.');
       }
     });
+
   
     // Excluir produto
     deleteProductForm.addEventListener('submit', async function (event) {

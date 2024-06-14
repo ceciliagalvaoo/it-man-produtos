@@ -46,25 +46,30 @@ module.exports = {
   },
 
   update: async function (req, res) {
-      try {
-          const productId = req.param('id');
-          const { name, description, price } = req.allParams();
+    try {
+        const productId = req.param('id');
+        const { name, description, price } = req.body;
 
-          const updatedProduct = await Product.updateOne({ id: productId }).set({
-              name,
-              description,
-              price
-          });
+        console.log('ID do Produto:', productId);
+        console.log('Parâmetros:', { name, description, price });
 
-          if (!updatedProduct) {
-              return res.notFound('Produto não encontrado');
-          }
+        const updatedProduct = await Product.updateOne({ id: productId }).set({
+            name,
+            description,
+            price
+        });
 
-          return res.json(updatedProduct);
-      } catch (error) {
-          return res.serverError(error);
-      }
-  },
+        if (!updatedProduct) {
+            return res.notFound('Produto não encontrado');
+        }
+
+        return res.json(updatedProduct);
+    } catch (error) {
+        console.error('Erro ao atualizar produto:', error);
+        return res.serverError(error);
+    }
+},
+
 
   delete: async function (req, res) {
       try {
